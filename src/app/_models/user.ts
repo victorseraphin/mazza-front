@@ -1,8 +1,9 @@
 export class User {
   id!: number;
+  name!: string;
   email!: string;
-  password!: string;
-  firstName!: string;
-  lastName!: string;
-  token?: string;
+  email_verified_at!: string;
+  created_at!: string;
+  updated_at!: string;
+  token?: string; 
 }
