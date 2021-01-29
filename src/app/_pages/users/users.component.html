@@ -6,29 +6,21 @@
                 <a [routerLink]="['/usuarios/create']" class="btn btn-success">Novo Usuário</a>
             </div>
             <br />
-            <table datatable [dtOptions]="dtOptions" class="row-border hover">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
                 <thead>
                     <tr>
-                        <th>Produtos</th>
-                        <th>Ações</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th width="150">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>teste1</td>
-                        <td>acao1</td>
-                    </tr>
-                    <tr>
-                        <td>teste2</td>
-                        <td>acao2</td>
-                    </tr>
-                    <tr>
-                        <td>teste3</td>
-                        <td>acao3</td>
-                    </tr>
-                    <tr>
-                        <td>teste4</td>
-                        <td>acao4</td>
+                    <tr *ngFor="let m of dados">
+                        <td>{{ m.name }}</td>
+                        <td>{{ m.email }}</td>
+                        <td><button class="btn btn-sm btn-info mr-2" [routerLink]="[m.id, 'edit']">Editar</button>
+                            <button class="btn btn-sm btn-danger" (click)="onDelete(m.id)">Deletar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
