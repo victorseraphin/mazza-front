@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Subject } from 'rxjs';
+
+import { UsersService } from '../../_services/users.service';
+import { UserRetorno } from '../../_models/user_retorno';
 
 @Component({
   selector: 'app-users',
@@ -9,8 +14,13 @@ import { Subject } from 'rxjs';
 export class UsersComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  loading = false;
+  dados: any;
 
-  constructor() { }
+  
+
+  constructor(private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -39,6 +49,16 @@ export class UsersComponent implements OnInit {
         }
       }
     };
+    this.usersService.getAll().subscribe((
+      resposta: UserRetorno) => 
+      {this.dados = resposta.data; this.dtTrigger.next();},
+      (error) => {console.log(error); }
+    );
+  }
+  public onDelete(test: any){
+    if ( confirm(`Deseja realmente excluir o registro `) ) {
+      
+    }
   }
 
 }
