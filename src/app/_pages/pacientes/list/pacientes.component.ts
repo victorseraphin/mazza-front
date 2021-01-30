@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+
+import { PacientesService } from '../../../_services/pacientes.service';
+import { PacienteRetorno } from '../../../_models/paciente_retorno';
 
 @Component({
   selector: 'app-pacientes',
@@ -6,13 +11,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pacientes.component.scss']
 })
 export class PacientesComponent implements OnInit {
+  
   dtOptions: DataTables.Settings = {};
-  constructor() { }
+  dtTrigger: Subject<any> = new Subject();
+  loading = false;
+  dados: any;
+
+  constructor(private pacientesService: PacientesService, private router: Router) {}
 
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2,
+      pageLength: 10,
       language: {
         emptyTable: "Nenhum registro encontrado",
         info: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -36,6 +46,22 @@ export class PacientesComponent implements OnInit {
         }
       }
     };
+    this.pacientesService.getAll().subscribe((
+      resposta: PacienteRetorno) => {this.dados = resposta.data; this.dtTrigger.next();},
+      (error) => {console.log(error); }
+    );
+  }
+  public onDelete(id: any){
+    if ( confirm(`Deseja realmente excluir o registro `) ) {
+      this.pacientesService.delete(id)
+          .subscribe(
+            () => { 
+                    alert("Registro excluído com sucesso!");
+                    return this.router.navigate(['/pacientes_list']);
+                  },
+            () => alert("Ocorreu um no servidor, tente mais tarde.")
+          )
+    }
   }
 
 }
