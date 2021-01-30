@@ -1,0 +1,29 @@
+<app-menutop></app-menutop>
+<div class="container">
+    <div class="card mt-2">
+        <div class="card-body">
+            <div class="card-body">
+                <a [routerLink]="['/medicos_create']" class="btn btn-success">Novo Médico</a>
+            </div>
+            <br />
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th width="150">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let m of dados">
+                        <td>{{ m.nome }}</td>
+                        <td>{{ m.email }}</td>
+                        <td><button class="btn btn-sm btn-info mr-2" [routerLink]="['/medicos_edit',m.id]">Editar</button>
+                            <button class="btn btn-sm btn-danger" (click)="onDelete(m.id)">Deletar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
