@@ -1,0 +1,72 @@
+<app-menutop></app-menutop>
+<div class="container">
+    <div class="card mt-2">
+        <div class="col-md-12 col-lg-12">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="card-body">
+                    <h2>Cadastro Médico</h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <label for="id">ID:</label>
+                                <input formControlName="id" id="id" type="text" class="form-control" readonly>
+                            </div>
+
+                            <div class="col-sm-10">
+                                <label for="email">E-mail:</label>
+                                <input formControlName="email" id="email" type="text" class="form-control" placeholder="E-mail">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="nome">Nome:</label>
+                                <input formControlName="nome" id="nome" type="text" class="form-control" placeholder="Nome">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="cpf_cnpj">CNPJ/CPF:</label>
+                                <input formControlName="cpf_cnpj" id="cpf_cnpj" type="text" class="form-control" placeholder="CNPJ/CPF">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="telefone1">Telefone 1:</label>
+                                <input formControlName="telefone1" id="telefone1" type="text" class="form-control" placeholder="Telefone 1">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="telefone2">Telefone 2:</label>
+                                <input formControlName="telefone2" id="telefone2" type="text" class="form-control" placeholder="Telefone 2">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="cep">CEP:</label>
+                                <input formControlName="cep" id="cep" type="text" class="form-control" placeholder="CEP">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="endereco">Endereço:</label>
+                                <input formControlName="endereco" id="endereco" type="text" class="form-control" placeholder="Endereço">
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="numero">Número:</label>
+                                <input formControlName="numero" id="numero" type="text" class="form-control" placeholder="Número">
+                            </div>
+
+                            <div class="col-sm-12" style="margin-bottom: 10px;">
+                                <br />
+                                <button [disabled]="form.invalid" class="btn btn-primary" type="submit" [disabled]="!form.valid">Salvar</button> &nbsp;
+                                <button class="btn btn-danger" type="button" (click)="gotoList()">Voltar</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
