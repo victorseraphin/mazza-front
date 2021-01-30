@@ -3,7 +3,7 @@
     <div class="card mt-2">
         <div class="card-body">
             <div class="card-body">
-                <a [routerLink]="['/usuarios/create']" class="btn btn-success">Novo Usuário</a>
+                <a [routerLink]="['/usuarios_create']" class="btn btn-success">Novo Usuário</a>
             </div>
             <br />
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
@@ -18,7 +18,7 @@
                     <tr *ngFor="let m of dados">
                         <td>{{ m.name }}</td>
                         <td>{{ m.email }}</td>
-                        <td><button class="btn btn-sm btn-info mr-2" [routerLink]="[m.id, 'edit']">Editar</button>
+                        <td><button class="btn btn-sm btn-info mr-2" [routerLink]="['/usuarios_edit/',m.id]">Editar</button>
                             <button class="btn btn-sm btn-danger" (click)="onDelete(m.id)">Deletar</button>
                         </td>
                     </tr>

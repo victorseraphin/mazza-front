@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Subject } from 'rxjs';
 
-import { UsersService } from '../../_services/users.service';
-import { UserRetorno } from '../../_models/user_retorno';
+import { UsersService } from '../../../_services/users.service';
+import { UserRetorno } from '../../../_models/user_retorno';
 
 @Component({
   selector: 'app-users',
@@ -18,11 +17,9 @@ export class UsersComponent implements OnInit {
   loading = false;
   dados: any;
 
-  
+  constructor(private usersService: UsersService, private router: Router) {}
 
-  constructor(private usersService: UsersService) {}
-
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -53,11 +50,18 @@ export class UsersComponent implements OnInit {
       resposta: UserRetorno) => 
       {this.dados = resposta.data; this.dtTrigger.next();},
       (error) => {console.log(error); }
-    );
+    );    
   }
-  public onDelete(test: any){
+  public onDelete(id: any){
     if ( confirm(`Deseja realmente excluir o registro `) ) {
-      
+      this.usersService.delete(id)
+          .subscribe(
+            () => { 
+                    alert("Registro excluído com sucesso!");
+                    return this.router.navigate(['/usuarios_list']);
+                  },
+            () => alert("Ocorreu um no servidor, tente mais tarde.")
+          )
     }
   }
 
