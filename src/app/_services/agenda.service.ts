@@ -4,14 +4,14 @@ import { Observable, throwError } from "rxjs";
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
-import { User } from '../_models/user';
+import { Agenda } from '../_models/agenda';
+import { AgendaRetorno } from '../_models/agenda_retorno';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
-
-  private API_URL: string = `${environment.apiUrl}/users`;
+export class AgendaService {
+  private API_URL: string = `${environment.apiUrl}/agendamentos`;
 
   private reqHeader = new HttpHeaders({ 
     'Content-Type': 'application/json'
@@ -20,25 +20,25 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   getAll() {          
-    return this.http.get<User>(this.API_URL, { headers: this.reqHeader });
+    return this.http.get<any>(this.API_URL, { headers: this.reqHeader });
   }
 
   getByID(id: any) {          
-    return this.http.get<User>(this.API_URL+'/'+id, { headers: this.reqHeader });
+    return this.http.get<Agenda>(this.API_URL+'/'+id, { headers: this.reqHeader });
   } 
 
-  create(dados: null): Observable<User> {
-    return this.http.post<User>(this.API_URL+'/salvar', JSON.stringify(dados), { headers: this.reqHeader })
+  create(dados: null): Observable<Agenda> {
+    return this.http.post<Agenda>(this.API_URL+'/salvar', JSON.stringify(dados), { headers: this.reqHeader })
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
-  update(dados: any, id: any): Observable<User> {
-    return this.http.post<User>(this.API_URL+'/atualizar/'+id, dados, { headers: this.reqHeader })
+  update(dados: null, id: any): Observable<Agenda> {
+    return this.http.post<Agenda>(this.API_URL+'/atualizar/'+id, JSON.stringify(dados), { headers: this.reqHeader })
     .pipe(
-    catchError(this.errorHandler)
-    );        
+      catchError(this.errorHandler)
+    )        
   }
 
   delete(id: any): Observable<null> {  
@@ -57,6 +57,6 @@ export class UsersService {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(errorMessage);
-  }
+ }
 
 }

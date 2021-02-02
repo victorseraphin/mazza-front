@@ -19,24 +19,21 @@ const routes: Routes = [
   { path: 'agenda_edit/:id', component: AgendaComponent, canActivate: [AuthGuard] },
 
   { path: 'medicos', component: MedicosComponent, canActivate: [AuthGuard]},
-  { path: 'medicos_list', component: MedicosComponent, canActivate: [AuthGuard]},
   { path: 'medicos_create', component: MedicosFormComponent, canActivate: [AuthGuard] },
   { path: 'medicos_edit/:id', component: MedicosFormComponent, canActivate: [AuthGuard] },
 
   { path: 'pacientes', component: PacientesComponent, canActivate: [AuthGuard]},
-  { path: 'pacientes_list', component: PacientesComponent, canActivate: [AuthGuard]},
   { path: 'pacientes_create', component: PacientesFormComponent, canActivate: [AuthGuard] },
   { path: 'pacientes_edit/:id', component: PacientesFormComponent, canActivate: [AuthGuard] },
 
   { path: 'usuarios', component: UsersComponent, canActivate: [AuthGuard]},
-  { path: 'usuarios_list', component: UsersComponent, canActivate: [AuthGuard]},
   { path: 'usuarios_create', component: UsersFormComponent, canActivate: [AuthGuard] },
   { path: 'usuarios_edit/:id', component: UsersFormComponent, canActivate: [AuthGuard] },
 
   { path: 'login', component: LoginComponent },
 
   // otherwise redirect to produtos
-  //{ path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

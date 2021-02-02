@@ -1,0 +1,16 @@
+<app-menutop></app-menutop>
+<div class="container">
+    <div class="card mt-2">
+        <div class="card-body">
+            <br />
+
+            <full-calendar #fullcalendar [options]="calendarOptions" [events]="calendarEvents"></full-calendar>
+
+        </div>
+        <p>
+
+            {{ eventsModel }}
+
+        </p>
+    </div>
+</div>
