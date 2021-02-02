@@ -66,7 +66,7 @@ export class MedicosFormComponent implements OnInit {
   onCarrega(){    
     this.medicosService.getByID(this.id).pipe(first()).subscribe(medicos => {
       this.loading = false;
-      this.retorno = medicos.data;
+      this.retorno = medicos;
       this.medicos = this.retorno[0];
       this.form.patchValue(
         {

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { UsersService } from '../../../_services/users.service';
-import { UserRetorno } from '../../../_models/user_retorno';
+import { User } from '../../../_models/user';
 
 @Component({
   selector: 'app-users',
@@ -47,8 +47,8 @@ export class UsersComponent implements OnInit {
       }
     };
     this.usersService.getAll().subscribe((
-      resposta: UserRetorno) => 
-      {this.dados = resposta.data; this.dtTrigger.next();},
+      resposta: User) => 
+      {this.dados = resposta; this.dtTrigger.next();},
       (error) => {console.log(error); }
     );    
   }
@@ -58,7 +58,7 @@ export class UsersComponent implements OnInit {
           .subscribe(
             () => { 
                     alert("Registro excluído com sucesso!");
-                    return this.router.navigate(['/usuarios_list']);
+                    window.location.reload(); 
                   },
             () => alert("Ocorreu um no servidor, tente mais tarde.")
           )

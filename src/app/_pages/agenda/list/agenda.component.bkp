@@ -1,0 +1,70 @@
+import { Component, AfterViewChecked, OnInit, ViewChild, ElementRef } from '@angular/core';
+
+import { FullCalendarComponent } from '@fullcalendar/angular'; 
+import { EventInput, Calendar } from '@fullcalendar/core'; 
+import dayGridPlugin from '@fullcalendar/daygrid'; 
+import timeGridPlugin from '@fullcalendar/timegrid'; 
+import interactionPlugin from '@fullcalendar/interaction'; 
+
+import Tooltip from 'tooltip.js'; 
+
+import * as moment from 'moment'; 
+ 
+@Component({
+  selector: 'app-agenda',
+  templateUrl: './agenda.component.html',
+  styleUrls: ['./agenda.component.scss']
+})
+export class Agenda2Component implements OnInit, AfterViewChecked {
+
+  @ViewChild('fullcalendar')
+  calendarComponent!: FullCalendarComponent;
+  
+  calendarEvents: EventInput[] = [];
+
+  calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
+
+  calendarApi!: Calendar; 
+  initialized = false; 
+
+  ngOnInit() {
+  }
+ 
+  ngAfterViewChecked() { 
+    this.calendarApi = this.calendarComponent.getApi(); 
+ 
+    if (this.calendarApi && !this.initialized) { 
+      this.initialized = true; 
+      this.loadEvents(); 
+    } 
+  } 
+  
+  loadEvents() {
+    const event = {
+      title: "teste",
+      start: "2021-02-02T06:30",
+      end: "2021-02-02T07:30"
+    };
+    this.calendarEvents.push(event);
+    this.calendarApi.removeAllEventSources(); 
+    this.calendarApi.addEventSource(this.calendarEvents); 
+  } 
+ 
+  onDateClick(clickedDate: any) {
+    console.log(clickedDate);
+  }
+
+  onEventClick(clickedEvent: any) {
+    console.log(clickedEvent);
+  }
+
+  onEventRender(info: any) { 
+    console.log('onEventRender', info.el); 
+    const tooltip = new Tooltip(info.el, { 
+      title: info.event.title, 
+      placement: 'top-end', 
+      trigger: 'hover', 
+      container: 'body' 
+    }); 
+  } 
+}

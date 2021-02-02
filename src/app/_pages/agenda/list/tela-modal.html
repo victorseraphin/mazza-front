@@ -1,0 +1,55 @@
+<!-- Modal -->
+<div class="modal-dialog modal-lg" style="padding:0px;margin:0px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Registro Nº {{tela.id}}</h5>
+                <button type="button" *ngIf="tela.id" class="btn btn-danger" data-dismiss="modal" (click)="onDelete(tela.id)">Excluir</button>
+            </div>
+            <form [formGroup]="form_modal" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <input formControlName="id" id="id" type="hidden" value="{{tela.id}}" class="form-control">
+
+                                <div class="col-sm-6">
+                                    <label for="pacientes_id">Pacientes:</label>
+                                    <select formControlName="pacientes_id" class="form-control"> 
+                                        <option *ngFor="let obj of pacientes" [ngValue]="obj.id" [selected]="tela.pacientes_id === obj.id">{{obj.nome}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="medicos_id">Medicos:</label>
+                                    <select formControlName="medicos_id" class="form-control"> 
+                                        <option *ngFor="let obj of medicos" [ngValue]="obj.id" [selected]="tela.medicos_id === obj.id">{{obj.nome}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="data">Data:</label>
+                                    <input formControlName="data" id="data" type="text" value="{{tela.data}}" class="form-control">
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="hora_ini">Hora inicial:</label>
+                                    <input formControlName="hora_ini" id="hora_ini" type="text" value="{{tela.hora_ini}}" class="form-control ">
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="hora_fin">Hora final:</label>
+                                    <input formControlName="hora_fin" id="hora_fin" type="text" value="{{tela.hora_fin}}" class="form-control ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onNoClick()">Fechar</button>
+                    <button [disabled]="form_modal.invalid" class="btn btn-primary" type="submit">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

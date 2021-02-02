@@ -4,7 +4,6 @@ import { Observable, throwError } from "rxjs";
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
-import { PacienteRetorno } from '../_models/paciente_retorno';
 import { Paciente } from '../_models/paciente';
 
 @Injectable({
@@ -20,11 +19,11 @@ export class PacientesService {
   constructor(private http: HttpClient) { }
 
   getAll() {          
-    return this.http.get<PacienteRetorno>(this.API_URL, { headers: this.reqHeader });
+    return this.http.get<Paciente>(this.API_URL, { headers: this.reqHeader });
   }
 
   getByID(id: any) {          
-    return this.http.get<PacienteRetorno>(this.API_URL+'/'+id, { headers: this.reqHeader });
+    return this.http.get<Paciente>(this.API_URL+'/'+id, { headers: this.reqHeader });
   } 
 
   create(dados: null): Observable<Paciente> {

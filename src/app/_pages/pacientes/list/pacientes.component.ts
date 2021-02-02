@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { PacientesService } from '../../../_services/pacientes.service';
-import { PacienteRetorno } from '../../../_models/paciente_retorno';
+import { Paciente } from '../../../_models/paciente';
 
 @Component({
   selector: 'app-pacientes',
@@ -47,7 +47,8 @@ export class PacientesComponent implements OnInit {
       }
     };
     this.pacientesService.getAll().subscribe((
-      resposta: PacienteRetorno) => {this.dados = resposta.data; this.dtTrigger.next();},
+      resposta: Paciente) => {this.dados = resposta; this.dtTrigger.next();
+       },
       (error) => {console.log(error); }
     );
   }
@@ -57,7 +58,7 @@ export class PacientesComponent implements OnInit {
           .subscribe(
             () => { 
                     alert("Registro excluído com sucesso!");
-                    return this.router.navigate(['/pacientes_list']);
+                    window.location.reload(); 
                   },
             () => alert("Ocorreu um no servidor, tente mais tarde.")
           )

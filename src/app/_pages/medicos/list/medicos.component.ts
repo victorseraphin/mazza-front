@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { MedicosService } from '../../../_services/medicos.service';
-import { MedicoRetorno } from '../../../_models/medico_retorno';
+import { Medico } from '../../../_models/medico';
 
 @Component({
   selector: 'app-medicos',
@@ -47,9 +47,9 @@ export class MedicosComponent implements OnInit {
       }
     };
     this.medicosService.getAll().subscribe((
-      resposta: MedicoRetorno) => {this.dados = resposta.data; this.dtTrigger.next();},
+      resposta: Medico) => {this.dados = resposta; this.dtTrigger.next();},
       (error) => {console.log(error); }
-    );
+    );    
   }
   public onDelete(id: any){
     if ( confirm(`Deseja realmente excluir o registro `) ) {
@@ -57,7 +57,7 @@ export class MedicosComponent implements OnInit {
           .subscribe(
             () => { 
                     alert("Registro excluído com sucesso!");
-                    return this.router.navigate(['/medicos_list']);
+                    window.location.reload(); 
                   },
             () => alert("Ocorreu um no servidor, tente mais tarde.")
           )

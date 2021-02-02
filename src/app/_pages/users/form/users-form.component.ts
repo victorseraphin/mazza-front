@@ -62,7 +62,7 @@ export class UsersFormComponent implements OnInit {
   onCarrega(){    
     this.usersService.getByID(this.id).pipe(first()).subscribe(users => {
       this.loading = false;
-      this.retorno = users.data;
+      this.retorno = users;
       this.users = this.retorno[0];
       this.form.patchValue(
         {
