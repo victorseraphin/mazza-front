@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, forwardRef, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { CalendarOptions, Calendar, EventInput } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import timeGridPlugin  from '@fullcalendar/timegrid';
@@ -143,6 +143,16 @@ export class TelaModal {
   }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+    };
+    
+    this.router.events.subscribe((evt) => {
+        if (evt instanceof NavigationEnd) {
+            this.router.navigated = false;
+            window.scrollTo(0, 0);
+        }
+    });
     this.form_modal = new FormGroup({
       id: new FormControl(''),
       medicos_id: new FormControl('', [Validators.required]),

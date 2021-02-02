@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { PacientesService } from '../../../_services/pacientes.service';
@@ -20,6 +20,16 @@ export class PacientesComponent implements OnInit {
   constructor(private pacientesService: PacientesService, private router: Router) {}
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+    };
+    
+    this.router.events.subscribe((evt) => {
+        if (evt instanceof NavigationEnd) {
+            this.router.navigated = false;
+            window.scrollTo(0, 0);
+        }
+    });
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
