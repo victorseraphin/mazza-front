@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../../_services/token-storage.service';
 import { User } from '../../_models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menutop',
@@ -12,7 +13,7 @@ export class MenutopComponent implements OnInit {
   isLoggedIn = false;
   user: User[] = [];
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -24,7 +25,7 @@ export class MenutopComponent implements OnInit {
   }
   logout(): void {
     this.tokenStorageService.signOut();
-    window.location.reload();
+    this.router.navigate(['/login']);
   }
 
 }
