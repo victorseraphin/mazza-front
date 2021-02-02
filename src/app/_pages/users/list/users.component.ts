@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { UsersService } from '../../../_services/users.service';
@@ -20,6 +20,16 @@ export class UsersComponent implements OnInit {
   constructor(private usersService: UsersService, private router: Router) {}
 
   ngOnInit(): void {    
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+    };
+    
+    this.router.events.subscribe((evt) => {
+        if (evt instanceof NavigationEnd) {
+            this.router.navigated = false;
+            window.scrollTo(0, 0);
+        }
+    });
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
