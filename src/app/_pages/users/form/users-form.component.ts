@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from "@angular/router";
+import Swal from 'sweetalert2';
 
 import { UsersService } from '../../../_services/users.service';
 
@@ -41,17 +42,29 @@ export class UsersFormComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     if(this.id != null){
-      this.usersService.update(this.form.value, this.id).subscribe(retorno => {
-        this.loading = false;
-        this.retorno = retorno;
-        return this.router.navigate(['/usuarios']);
-      })    
+      this.usersService.update(this.form.value, this.id)
+      .subscribe(
+        retorno => {
+          this.loading = false;
+          this.retorno = retorno;
+          return this.router.navigate(['/usuarios']);
+        },
+        error => {
+          Swal.fire('Error!', error, 'error')
+        }
+      )     
     }else{
-      this.usersService.create(this.form.value).subscribe(retorno => {
-        this.loading = false;
-        this.retorno = retorno;
-        return this.router.navigate(['/usuarios']);
-      })  
+      this.usersService.create(this.form.value)
+      .subscribe(
+          retorno => {
+          this.loading = false;
+          this.retorno = retorno;
+          return this.router.navigate(['/usuarios']);
+        },
+        error => {
+          Swal.fire('Error!', error, 'error')
+        }
+      )  
     }   
   } 
 

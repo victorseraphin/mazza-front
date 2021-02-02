@@ -51,7 +51,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/agenda']);
       },
       err => {
-        this.errorMessage = err.error.message;
+        console.log(err);
+        
+        this.errorMessage = err.statusText;
         this.isLoginFailed = true;
         this.isLoggedIn = false;
       }

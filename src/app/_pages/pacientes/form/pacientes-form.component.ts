@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from "@angular/router";
+import Swal from 'sweetalert2';
 
 import { PacientesService } from '../../../_services/pacientes.service';
 
@@ -45,17 +46,29 @@ export class PacientesFormComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     if(this.id != null){
-      this.pacientesService.update(this.form.value, this.id).subscribe(retorno => {
-        this.loading = false;
-        this.retorno = retorno;
-        return this.router.navigate(['/pacientes']);
-      })    
+      this.pacientesService.update(this.form.value, this.id)
+      .subscribe(
+        retorno => {
+          this.loading = false;
+          this.retorno = retorno;
+          return this.router.navigate(['/pacientes']);
+        },
+        error => {
+          Swal.fire('Error!', error, 'error')
+        }
+      )   
     }else{
-      this.pacientesService.create(this.form.value).subscribe(retorno => {
-        this.loading = false;
-        this.retorno = retorno;
-        return this.router.navigate(['/pacientes']);
-      })  
+      this.pacientesService.create(this.form.value)
+      .subscribe(
+        retorno => {
+          this.loading = false;
+          this.retorno = retorno;
+          return this.router.navigate(['/pacientes']);
+        },
+        error => {
+          Swal.fire('Error!', error, 'error')
+        }
+      )  
     }
   } 
 
