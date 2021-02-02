@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { MedicosService } from '../../../_services/medicos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-medicos-form',
@@ -45,17 +46,29 @@ export class MedicosFormComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     if(this.id != null){
-      this.medicosService.update(this.form.value, this.id).subscribe(retorno => {
-        this.loading = false;
-        this.retorno = retorno;
-        return this.router.navigate(['/medicos']);
-      })    
+      this.medicosService.update(this.form.value, this.id)
+      .subscribe(
+        retorno => {
+          this.loading = false;
+          this.retorno = retorno;
+          return this.router.navigate(['/medicos']);
+        },
+        error => {
+          Swal.fire('Error!', error, 'error')
+        }
+      )      
     }else{
-      this.medicosService.create(this.form.value).subscribe(retorno => {
-        this.loading = false;
-        this.retorno = retorno;
-        return this.router.navigate(['/medicos']);
-      })  
+      this.medicosService.create(this.form.value)
+      .subscribe(
+        retorno => {
+          this.loading = false;
+          this.retorno = retorno;
+          return this.router.navigate(['/medicos']);
+        },
+        error => {
+          Swal.fire('Error!', error, 'error')
+        }
+      )   
     }
   } 
 

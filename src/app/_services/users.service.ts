@@ -49,13 +49,9 @@ export class UsersService {
     )
   }
 
-  errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
-    let errorMessage = '';
-    if(error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
+  errorHandler(error: { error: { message: { original: {message: string; }}}; status: any; message: any; }) {
+    let errorMessage = ''; 
+    errorMessage = error.error.message.original.message;    
     return throwError(errorMessage);
   }
 
