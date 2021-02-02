@@ -215,7 +215,7 @@ export class TelaModal {
           .subscribe(
             () => { 
                     alert("Registro excluído com sucesso!");
-                    window.location.reload(); 
+                    return this.router.navigate(['/agendas']); 
                   },
             () => alert("Ocorreu um no servidor, tente mais tarde.")
           )
