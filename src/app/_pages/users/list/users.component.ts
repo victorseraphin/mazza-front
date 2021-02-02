@@ -58,7 +58,7 @@ export class UsersComponent implements OnInit {
           .subscribe(
             () => { 
                     alert("Registro excluído com sucesso!");
-                    window.location.reload(); 
+                    return this.router.navigate(['/usuarios']);
                   },
             () => alert("Ocorreu um no servidor, tente mais tarde.")
           )

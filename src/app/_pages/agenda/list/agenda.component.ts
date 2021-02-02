@@ -177,13 +177,12 @@ export class TelaModal {
     if(this.id != null){
       console.log('update');
       this.agendasService.update(this.form_modal.value, this.id).subscribe(retorno => {
-        window.location.reload();         
+        return this.router.navigate(['/agendas']);
       })    
     }else{  
-      console.log('create');
-          
+      console.log('create');          
       this.agendasService.create(this.form_modal.value).subscribe(retorno => {        
-        window.location.reload(); 
+        return this.router.navigate(['/agendas']);
       })  
     }
     

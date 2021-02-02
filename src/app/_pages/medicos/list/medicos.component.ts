@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { MedicosService } from '../../../_services/medicos.service';
@@ -20,6 +20,16 @@ export class MedicosComponent implements OnInit {
   constructor(private medicosService: MedicosService, private router: Router) {}
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+    };
+    
+    this.router.events.subscribe((evt) => {
+        if (evt instanceof NavigationEnd) {
+            this.router.navigated = false;
+            window.scrollTo(0, 0);
+        }
+    });
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -57,7 +67,7 @@ export class MedicosComponent implements OnInit {
           .subscribe(
             () => { 
                     alert("Registro excluído com sucesso!");
-                    window.location.reload(); 
+                    return this.router.navigate(['/medicos']);
                   },
             () => alert("Ocorreu um no servidor, tente mais tarde.")
           )

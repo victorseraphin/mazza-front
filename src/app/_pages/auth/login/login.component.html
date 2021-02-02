@@ -1,7 +1,7 @@
 <div class="page">
     <div class="col-md-12">
         <div class="login">
-            <img id="profile-img" src="../../../assets/img/logo.png" class="profile-img-card" />
+            <img id="profile-img" src="./assets/img/logo.png" class="profile-img-card" />
             <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="form-login">
                 <div class="form-group">
                     <input type="text" class="form-control" name="email" [(ngModel)]="form.email" required #email="ngModel" placeholder="Seu e-mail" />
