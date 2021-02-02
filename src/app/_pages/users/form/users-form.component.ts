@@ -50,7 +50,7 @@ export class UsersFormComponent implements OnInit {
       this.usersService.create(this.form.value).subscribe(retorno => {
         this.loading = false;
         this.retorno = retorno;
-        return this.router.navigate(['/usuarios_edit/',this.retorno.data.id]);
+        return this.router.navigate(['/usuarios']);
       })  
     }   
   } 

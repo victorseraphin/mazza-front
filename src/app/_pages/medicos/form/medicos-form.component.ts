@@ -54,7 +54,7 @@ export class MedicosFormComponent implements OnInit {
       this.medicosService.create(this.form.value).subscribe(retorno => {
         this.loading = false;
         this.retorno = retorno;
-        return this.router.navigate(['/medicos_edit/',this.retorno.data.id]);
+        return this.router.navigate(['/medicos']);
       })  
     }
   } 

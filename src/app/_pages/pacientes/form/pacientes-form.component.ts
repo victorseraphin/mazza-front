@@ -54,7 +54,7 @@ export class PacientesFormComponent implements OnInit {
       this.pacientesService.create(this.form.value).subscribe(retorno => {
         this.loading = false;
         this.retorno = retorno;
-        return this.router.navigate(['/pacientes_edit/',this.retorno.data.id]);
+        return this.router.navigate(['/pacientes']);
       })  
     }
   } 
