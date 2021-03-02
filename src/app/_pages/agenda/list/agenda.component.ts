@@ -89,7 +89,7 @@ export class AgendaComponent implements OnInit {
     this.timeStr = arg.dateStr.substr(11, 13);
     const dialogRef = this.dialog.open(TelaModal, {      
       data: { 
-        data:  moment(this.dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY'), 
+        data:  moment(this.dateStr, 'YYYY-MM-DD').format('YYYY-MM-DD'), 
         hora_ini:  moment(this.timeStr, 'HH:mm').format('HH:mm'), 
         hora_fin: moment(this.timeStr, 'HH:mm').add(60, 'minutes').format('HH:mm')}
     });
@@ -107,7 +107,7 @@ export class AgendaComponent implements OnInit {
         id: arg.event.id, 
         pacientes_id: arg.event.extendedProps.pacientes_id, 
         medicos_id:  arg.event.extendedProps.medicos_id, 
-        data:  moment(this.dateStr, 'YYYY-MM-DD').format('DD/MM/YYYY'), 
+        data:  moment(this.dateStr, 'YYYY-MM-DD').format('YYYY-MM-DD'), 
         hora_ini:  moment(arg.event.startStr.substr(11, 13), 'HH:mm').format('HH:mm'),
         hora_fin:  moment(arg.event.endStr.substr(11, 13), 'HH:mm').format('HH:mm')}
     });
@@ -182,7 +182,7 @@ export class TelaModal {
     this.id = this.form_modal.value.id;   
     console.log(this.form_modal.value);
     
-    this.form_modal.value.data = moment(this.form_modal.value.data).format('YYYY/DD/MM');
+    this.form_modal.value.data = moment(this.form_modal.value.data).format('YYYY/MM/DD');
 
     if(this.id != null){
       console.log('update');
